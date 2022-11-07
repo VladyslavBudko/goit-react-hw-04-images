@@ -23,15 +23,20 @@ class App extends Component {
       <AppContainer>
         <Searchbar />
         <ImageGallery />
+
+        <button type="button" onClick={this.toggleModal}>
+          Modal open
+        </button>
+
         {showModal && (
-          <Modal>
-            {/* <h1>Test Modal</h1>
+          <Modal onClose={this.toggleModal}>
+            <h1>Test Modal</h1>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere ad
               doloremque, magni voluptas harum consequuntur qui, commodi hic
               nemo blanditiis, atque perspiciatis aliquam amet ex illum eligendi
               esse magnam ipsam.
-            </p> */}
+            </p>
           </Modal>
         )}
       </AppContainer>
