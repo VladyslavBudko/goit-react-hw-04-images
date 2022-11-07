@@ -1,21 +1,16 @@
 // import React from 'react';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
+import { AppDiv } from './App.styled';
+import Searchbar from 'components/Searchbar';
+import ImageGallery from 'components/ImageGallery'
 
 const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101',
-      }}
-    >
-      React homework template
-    </div>
+    <AppDiv>
+      <Searchbar />
+      <ImageGallery/>
+    </AppDiv>
   );
 };
 
