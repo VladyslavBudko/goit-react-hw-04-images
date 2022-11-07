@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { toast } from 'react-toastify';
 
 import {
   SearchbarHeader,
@@ -22,7 +23,7 @@ class Searchbar extends Component {
     e.preventDefault();
 
     if (this.state.inputData.trim() === '') {
-      alert('Input image or photo name');
+      toast.error('Input image or photo name');
       return;
     }
     this.props.onSubmit(this.state.inputData);

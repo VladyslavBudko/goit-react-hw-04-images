@@ -5,6 +5,8 @@ import { AppContainer } from './App.styled';
 import Searchbar from 'components/Searchbar';
 import ImageGallery from 'components/ImageGallery';
 import Modal from 'components/Modal';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   state = {
@@ -26,7 +28,7 @@ class App extends Component {
   //   console.log(this.state);
   // }
   handleSearchBarSubmit = imageName => {
-    this.setState({imageName});
+    this.setState({ imageName });
   };
 
   toggleModal = () => {
@@ -39,6 +41,7 @@ class App extends Component {
     const { showModal } = this.state;
     return (
       <AppContainer>
+        <ToastContainer autoClose={3000}/>
         <Searchbar onSubmit={this.handleSearchBarSubmit} />
         <ImageGallery />
         {/* {loading && <h1>Loading Image Gallery</h1> } */}
