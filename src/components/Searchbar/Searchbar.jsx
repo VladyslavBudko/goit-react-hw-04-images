@@ -2,16 +2,20 @@ import {
   SearchbarHeader,
   SearchForm,
   SearchFormButton,
-  SearchFormButtonLabel,
+  // SearchFormButtonLabel,
   SearchFormInput,
 } from './Searchbar.styled';
+import { ReactComponent as DeleteIcon } from '../../icons/delete.svg';
 
 const Searchbar = () => {
   return (
     <SearchbarHeader>
       <SearchForm>
-        <SearchFormButton type="submit">
-          <SearchFormButtonLabel>Search</SearchFormButtonLabel>
+        <SearchFormButton type="submit"
+          // onClick={} 
+          aria-label = 'Search'>
+          <DeleteIcon />
+          {/* <SearchFormButtonLabel>Search</SearchFormButtonLabel> */}
         </SearchFormButton>
 
         <SearchFormInput

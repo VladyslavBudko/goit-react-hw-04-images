@@ -34,7 +34,6 @@ export const SearchbarHeader = styled.header`
     width: 48px;
     height: 48px;
     border: 0;
-    background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
     background-size: 40%;
     background-repeat: no-repeat;
     background-position: center;
@@ -46,6 +45,7 @@ export const SearchbarHeader = styled.header`
     &:hover {
         opacity: 1;
   `
+  // background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
 
 
   export const SearchFormButtonLabel = styled.span`
