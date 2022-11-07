@@ -5,16 +5,20 @@ import {
   // SearchFormButtonLabel,
   SearchFormInput,
 } from './Searchbar.styled';
-import { ReactComponent as DeleteIcon } from '../../icons/delete.svg';
+
+import { AiOutlineSearch } from 'react-icons/ai';
+// import { ReactComponent as DeleteIcon } from '../../icons/delete.svg';
 
 const Searchbar = () => {
   return (
     <SearchbarHeader>
       <SearchForm>
-        <SearchFormButton type="submit"
-          // onClick={} 
-          aria-label = 'Search'>
-          <DeleteIcon />
+        <SearchFormButton
+          type="submit"
+          // onClick={}
+          aria-label="Search"
+        >
+          <AiOutlineSearch size={24}/>
           {/* <SearchFormButtonLabel>Search</SearchFormButtonLabel> */}
         </SearchFormButton>
 
