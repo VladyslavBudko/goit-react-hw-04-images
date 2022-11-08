@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { ImageGalleryList } from './ImageGallery.styled';
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import LoadMoreBtn from 'components/Button';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
+import ImageErrorView from './ImageErrorView/ImageErrorView';
 
 
 class ImageGallery extends Component {
@@ -50,12 +51,14 @@ class ImageGallery extends Component {
     }
 
     if (status === 'rejected') {
-      return <h2>{error.message} </h2>;
+      return <ImageErrorView message={error.message} />;
     }
 
     if (image && image.total === 0) {
-      toast.error('Please try again!');
-      return <h2> ${imageName} not found. Please try again!</h2>;
+      // toast.error('Please try again!');
+      // return <h2>{imageName} not found. Please try again!</h2>;
+      return <ImageErrorView message={`${imageName} not found. Please try again!`} />;
+
     }
 
     if (status === 'resolved') {

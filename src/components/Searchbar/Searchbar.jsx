@@ -26,6 +26,7 @@ class Searchbar extends Component {
       toast.error('Input image or photo name');
       return;
     }
+    
     this.props.onSubmit(this.state.inputData);
     this.setState({
       inputData: '',
