@@ -27,6 +27,9 @@ class Searchbar extends Component {
       return;
     }
     this.props.onSubmit(this.state.inputData);
+    this.setState({
+      inputData: '',
+    });
   };
 
   render() {
