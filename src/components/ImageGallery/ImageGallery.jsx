@@ -4,7 +4,7 @@ import ImageGalleryItem from 'components/ImageGalleryItem';
 import LoadMoreBtn from 'components/Button';
 // import { toast } from 'react-toastify';
 import ImageErrorView from './ImageErrorView/ImageErrorView';
-
+import LoaderView from 'components/Loader/Loader';
 
 class ImageGallery extends Component {
   state = {
@@ -21,6 +21,9 @@ class ImageGallery extends Component {
 
     if (prevName !== newName) {
       this.setState({ status: 'pending' });
+      
+      // setTimeout(() => {
+      // }, 2000)
 
       fetch(
         `https://pixabay.com/api/?q=${newName}&page=1&key=${MY_KEY}&image_type=photo&orientation=horizontal&per_page=12`
@@ -47,7 +50,7 @@ class ImageGallery extends Component {
     }
 
     if (status === 'pending') {
-      return <InputMessageForm>Loading {imageName}</InputMessageForm>;
+      return <LoaderView message={`Loading ${imageName}`} />;
     }
 
     if (status === 'rejected') {
@@ -57,8 +60,9 @@ class ImageGallery extends Component {
     if (image && image.total === 0) {
       // toast.error('Please try again!');
       // return <h2>{imageName} not found. Please try again!</h2>;
-      return <ImageErrorView message={`${imageName} not found. Please try again!`} />;
-
+      return (
+        <ImageErrorView message={`${imageName} not found. Please try again!`} />
+      );
     }
 
     if (status === 'resolved') {
