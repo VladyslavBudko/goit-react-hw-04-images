@@ -1,10 +1,11 @@
 import errorImage from './error.jpg';
+import {ImageErrorForm} from './ImgeErrorView.styled'
 
 export default function ImageErrorView({ message }) {
   return (
-    <div>
+    <ImageErrorForm>
       <img src={errorImage} width="240" alt="" />
-      <p>{message}</p>
-    </div>
+      <h2>{message}</h2>
+    </ImageErrorForm>
   );
 }

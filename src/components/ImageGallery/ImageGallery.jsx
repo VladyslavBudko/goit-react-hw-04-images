@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ImageGalleryList } from './ImageGallery.styled';
+import { ImageGalleryList, InputMessageForm } from './ImageGallery.styled';
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import LoadMoreBtn from 'components/Button';
 // import { toast } from 'react-toastify';
@@ -43,11 +43,11 @@ class ImageGallery extends Component {
     // console.log(image);
 
     if (status === 'idle') {
-      return <h2>Input image or photo name</h2>;
+      return <InputMessageForm>Input image or photo name</InputMessageForm>;
     }
 
     if (status === 'pending') {
-      return <h2>Loading {imageName}</h2>;
+      return <InputMessageForm>Loading {imageName}</InputMessageForm>;
     }
 
     if (status === 'rejected') {
