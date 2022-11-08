@@ -11,22 +11,9 @@ import 'react-toastify/dist/ReactToastify.css';
 class App extends Component {
   state = {
     imageName: '',
-    // loading: false,
     showModal: false,
   };
 
-  // componentDidMount() {
-  //   this.setState({ loading: true });
-  // const MY_KEY = '30279426-ce0edf6a31bb607e668c5bb01';
-
-  //   fetch(
-  //     `https://pixabay.com/api/?q=cat&page=1&key=${MY_KEY}&image_type=photo&orientation=horizontal&per_page=12`
-  //   )
-  //     .then(res => res.json())
-  //     .then(image => this.setState({ image }))
-  //     .finally(() => this.setState({ loading: false }));
-  //   console.log(this.state);
-  // }
   handleSearchBarSubmit = imageName => {
     this.setState({ imageName });
   };
@@ -41,9 +28,9 @@ class App extends Component {
     const { showModal } = this.state;
     return (
       <AppContainer>
-        <ToastContainer autoClose={3000}/>
+        <ToastContainer autoClose={3000} />
         <Searchbar onSubmit={this.handleSearchBarSubmit} />
-        <ImageGallery />
+        <ImageGallery imageName={this.state.imageName} />
         {/* {loading && <h1>Loading Image Gallery</h1> } */}
         {/* {image && (
          
