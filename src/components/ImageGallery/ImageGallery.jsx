@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { ImageGalleryList } from './ImageGallery.styled';
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import LoadMoreBtn from 'components/Button';
+import { toast } from 'react-toastify';
+
 
 class ImageGallery extends Component {
   state = {
@@ -37,9 +39,7 @@ class ImageGallery extends Component {
   render() {
     const { image, error, status } = this.state;
     const { imageName } = this.props;
-    console.log(image);
-
-   
+    // console.log(image);
 
     if (status === 'idle') {
       return <h2>Input image or photo name</h2>;
@@ -54,8 +54,8 @@ class ImageGallery extends Component {
     }
 
     if (image && image.total === 0) {
-      console.log(this.state.image);
-      return <h2> ${imageName} not found. Try again!</h2>;
+      toast.error('Please try again!');
+      return <h2> ${imageName} not found. Please try again!</h2>;
     }
 
     if (status === 'resolved') {
