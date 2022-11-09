@@ -5,7 +5,7 @@ import {
 
 const ImageGalleryItem = ({ imageList }) => {
   console.log(imageList);
-  return imageList.hits.map(({ id, webformatURL, largeImageUR, tags }) => {
+  return imageList.map(({ id, webformatURL, largeImageUR, tags }) => {
     return (
       <ImageGalleryItemLi key={id}>
         <ImageGalleryItemImage src={webformatURL} alt={tags} />

@@ -8,7 +8,7 @@ import LoaderView from 'components/Loader/Loader';
 
 class ImageGallery extends Component {
   state = {
-    image: null,
+    images: [],
     // loading: false,
     error: null,
     status: 'idle',
@@ -37,7 +37,7 @@ class ImageGallery extends Component {
           }
           return Promise.reject(new Error(`${newName} not found. Try again!`));
         })
-        .then(image => this.setState({ image, status: 'resolved' }))
+        .then(images => this.setState(prevState => ({ images: [...prevState.images, ...images.hits], status: 'resolved' })))
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
   }
@@ -49,9 +49,9 @@ class ImageGallery extends Component {
   };
 
   render() {
-    const { image, error, status } = this.state;
+    const { images, error, status } = this.state;
     const { imageName } = this.props;
-    // console.log(image);
+    // console.log(images);
 
     if (status === 'idle') {
       return <InputMessageForm>Input image or photo name</InputMessageForm>;
@@ -65,7 +65,7 @@ class ImageGallery extends Component {
       return <ImageErrorView message={error.message} />;
     }
 
-    if (image && image.total === 0) {
+    if (images && images.total === 0) {
       // toast.error('Please try again!');
       // return <h2>{imageName} not found. Please try again!</h2>;
       return (
@@ -77,7 +77,7 @@ class ImageGallery extends Component {
       return (
         <>
           <ImageGalleryList>
-            <ImageGalleryItem imageList={image} />
+            <ImageGalleryItem imageList={images} />
           </ImageGalleryList>
           <LoadMoreBtn onClick={this.loadMore} />
         </>
