@@ -12,33 +12,41 @@ class ImageGallery extends Component {
     // loading: false,
     error: null,
     status: 'idle',
+    page: 1,
   };
 
   componentDidUpdate(prevProps, prevState) {
     const prevName = prevProps.imageName;
     const newName = this.props.imageName;
+    const prevPage = prevState.page;
+    const newPage = this.state.page;
     const MY_KEY = '30279426-ce0edf6a31bb607e668c5bb01';
 
-    if (prevName !== newName) {
+    if (prevName !== newName || prevPage !== newPage) {
       this.setState({ status: 'pending' });
-      
+
       // setTimeout(() => {
       // }, 2000)
 
       fetch(
-        `https://pixabay.com/api/?q=${newName}&page=1&key=${MY_KEY}&image_type=photo&orientation=horizontal&per_page=12`
+        `https://pixabay.com/api/?q=${newName}&page=1&key=${MY_KEY}&image_type=photo&orientation=horizontal&per_page=12&page=${newPage}`
       )
         .then(res => {
           if (res.ok) {
             return res.json();
           }
-
           return Promise.reject(new Error(`${newName} not found. Try again!`));
         })
         .then(image => this.setState({ image, status: 'resolved' }))
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
   }
+
+  loadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
 
   render() {
     const { image, error, status } = this.state;
@@ -71,7 +79,7 @@ class ImageGallery extends Component {
           <ImageGalleryList>
             <ImageGalleryItem imageList={image} />
           </ImageGalleryList>
-          <LoadMoreBtn />
+          <LoadMoreBtn onClick={this.loadMore} />
         </>
       );
     }

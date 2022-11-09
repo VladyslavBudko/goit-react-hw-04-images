@@ -28,13 +28,9 @@ class App extends Component {
     const { showModal } = this.state;
     return (
       <AppContainer>
-        <ToastContainer autoClose={3000} />
         <Searchbar onSubmit={this.handleSearchBarSubmit} />
         <ImageGallery imageName={this.state.imageName} />
-        {/* {loading && <h1>Loading Image Gallery</h1> } */}
-        {/* {image && (
-         
-        )} */}
+        <ToastContainer autoClose={3000} />
 
         <button type="button" onClick={this.toggleModal}>
           Modal open
