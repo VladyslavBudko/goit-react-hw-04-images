@@ -13,6 +13,7 @@ export const ImageGalleryList = styled.ul`
   margin-right: auto;
 `;
 
+
 export const InputMessageForm = styled.h2`
 text-align: center;
 `
