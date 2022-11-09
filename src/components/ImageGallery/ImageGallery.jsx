@@ -9,7 +9,6 @@ import LoaderView from 'components/Loader/Loader';
 class ImageGallery extends Component {
   state = {
     images: [],
-    // loading: false,
     error: null,
     status: 'idle',
     page: 1,
@@ -22,11 +21,13 @@ class ImageGallery extends Component {
     const newPage = this.state.page;
     const MY_KEY = '30279426-ce0edf6a31bb607e668c5bb01';
 
+    if (prevName !== newName) {
+      this.setState({ images: [] });
+
+    }
+
     if (prevName !== newName || prevPage !== newPage) {
       this.setState({ status: 'pending' });
-
-      // setTimeout(() => {
-      // }, 2000)
 
       fetch(
         `https://pixabay.com/api/?q=${newName}&page=1&key=${MY_KEY}&image_type=photo&orientation=horizontal&per_page=12&page=${newPage}`
@@ -37,7 +38,12 @@ class ImageGallery extends Component {
           }
           return Promise.reject(new Error(`${newName} not found. Try again!`));
         })
-        .then(images => this.setState(prevState => ({ images: [...prevState.images, ...images.hits], status: 'resolved' })))
+        .then(images =>
+          this.setState(prevState => ({
+            images: [...prevState.images, ...images.hits],
+            status: 'resolved',
+          }))
+        )
         .catch(error => this.setState({ error, status: 'rejected' }));
     }
   }
@@ -65,25 +71,20 @@ class ImageGallery extends Component {
       return <ImageErrorView message={error.message} />;
     }
 
-    if (images && images.total === 0) {
+    if (images && images.length === 0) {
       // toast.error('Please try again!');
-      // return <h2>{imageName} not found. Please try again!</h2>;
       return (
         <ImageErrorView message={`${imageName} not found. Please try again!`} />
       );
     }
 
-    if (status === 'resolved') {
+    if (status === 'resolved' && images.length !== 0) {
       return (
         <>
           <ImageGalleryList>
             {images.map(image => {
-              return (
-                <ImageGalleryItem imageList={image} key={image.id}/>
-                
-              )
-            }) 
-            }
+              return <ImageGalleryItem imageList={image} key={image.id} />;
+            })}
           </ImageGalleryList>
           <LoadMoreBtn onClick={this.loadMore} />
         </>
