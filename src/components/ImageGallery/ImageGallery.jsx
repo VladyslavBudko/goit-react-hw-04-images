@@ -3,16 +3,15 @@ import { ImageGalleryList, InputMessageForm } from './ImageGallery.styled';
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import ImageErrorView from 'components/ImageErrorView';
 import LoaderView from 'components/Loader/Loader';
-// import { toast } from 'react-toastify';
 
 
-const ImageGallery = ({ images, status, imageName, error}) => {
+const ImageGallery = ({ images, status, imageName, error, page}) => {
 
   if (status === 'idle') {
     return <InputMessageForm>Input image or photo name</InputMessageForm>;
   }
 
-  if (status === 'pending') {
+  if (status === 'pending' && page === 1) {
     return <LoaderView message={`Loading ${imageName}`} />;
   }
 
@@ -21,23 +20,20 @@ const ImageGallery = ({ images, status, imageName, error}) => {
   }
 
   if (images && images.length === 0) {
-    // toast.error('Please try again!');
     return (
       <ImageErrorView message={`${imageName} not found. Please try again!`} />
     );
   }
 
-  if (status === 'resolved' && images.length !== 0) {
+  // if (status === 'resolved' && images.length !== 0) {
+    // }
   return (
-    <>
       <ImageGalleryList>
         {images.map(image => {
-          return <ImageGalleryItem imageList={image} key={image.id} />;
+          return <ImageGalleryItem imageList={image} key={image.id} loading="lazy" />;
         })}
       </ImageGalleryList>
-    </>
   );
-}
 }
 
 

@@ -17,14 +17,12 @@ class ImageGalleryItem extends Component {
   };
 
   render() {
-    const { id, webformatURL, largeImageURL, tags } = this.props.imageList;
+    const { webformatURL, largeImageURL, tags } = this.props.imageList;
     const { showModal } = this.state;
 
-    // console.log(imageList);
-    // return imageList.map(({ id, webformatURL, largeImageURL, tags }) => {
     return (
       <>
-        <ImageGalleryItemLi key={id} onClick={this.toggleModal}>
+        <ImageGalleryItemLi  onClick={this.toggleModal}>
           <ImageGalleryItemImage src={webformatURL} alt={tags} />
         </ImageGalleryItemLi>
 

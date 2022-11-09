@@ -23,24 +23,15 @@ class App extends Component {
  async componentDidUpdate(prevProps, prevState) {
     const prevName = prevState.imageName;
     const newName = this.state.imageName;
-    // console.log(prevName);
-    // console.log(newName);
 
     const prevPage = prevState.page;
     const newPage = this.state.page;
-    // console.log(prevPage);
-    // console.log(newPage);
-
-    // if (prevName !== newName) {
-    //   this.setState({ images: [] });
-    // }
 
     if (prevName !== newName || prevPage !== newPage) {
       this.setState({ status: 'pending' });
 
       try {
         const images = await fetchImages(newName, newPage);
-        console.log(images)
         this.setState(prevState => ({
           images: [...prevState.images, ...images.hits],
           total: images.total,
@@ -63,8 +54,7 @@ class App extends Component {
   };
 
   render() {
-    const { images, error, status, total } = this.state;
-    console.log(this.state);
+    const { images, error, status, total, page } = this.state;
 
     return (
       <AppContainer>
@@ -74,6 +64,7 @@ class App extends Component {
           status={status}
           imageName={this.state.imageName}
           error={error}
+          page={page}
         />
         {images.length < total && <LoadMoreBtn onClick={this.loadMore} />}
 
