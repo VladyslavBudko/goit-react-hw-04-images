@@ -77,7 +77,13 @@ class ImageGallery extends Component {
       return (
         <>
           <ImageGalleryList>
-            <ImageGalleryItem imageList={images} />
+            {images.map(image => {
+              return (
+                <ImageGalleryItem imageList={image} key={image.id}/>
+                
+              )
+            }) 
+            }
           </ImageGalleryList>
           <LoadMoreBtn onClick={this.loadMore} />
         </>

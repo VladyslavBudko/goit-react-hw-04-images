@@ -22,7 +22,6 @@ class Modal extends Component {
 
   handleBackdropClick = e => {
     // !!!!!!!!!!!!! Проверить !!!!!!!!!!!!!!!
-    // console.log('Backdrop');
     // console.log('CurrentTarget:', e.currentTarget);
     // console.log('target:', e.target);
     if (e.currentTarget === e.target) {
@@ -33,8 +32,8 @@ class Modal extends Component {
   render() {
     return createPortal(
         // !!!!!!!!!! Убрать className !!!!!!!!!!!
-      <ModalBackdrop className='Modal__backdrop' onClick={this.handleBackdropClick}>
-        <Overlay className='Modal__content'>{this.props.children} </Overlay>
+      <ModalBackdrop  onClick={this.handleBackdropClick}>
+        <Overlay >{this.props.children} </Overlay>
       </ModalBackdrop>,
       modalRoot
     );
