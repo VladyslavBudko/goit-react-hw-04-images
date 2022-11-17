@@ -26,7 +26,7 @@ const App = () => {
 
       try {
         const images = await fetchImages(queryImageName, page);
-        setImages(prevState => [...prevState.images, ...images.hits]);
+        setImages(prevState => [...prevState, ...images.hits]);
         setTotal(images.total);
         setStatus('resolved');
       } catch (error) {
@@ -46,22 +46,20 @@ const App = () => {
   };
 
   const loadMore = () => {
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-    }));
+    setPage(prevState => prevState + 1);
   };
 
   return (
     <AppContainer>
-      <Searchbar onSubmit={this.handleSearchBarSubmit} />
+      <Searchbar onSubmit={handleSearchBarSubmit} />
       <ImageGallery
         images={images}
         status={status}
-        queryImageName={this.state.queryImageName}
+        queryImageName={queryImageName}
         error={error}
         page={page}
       />
-      {images.length < total && <LoadMoreBtn onClick={this.loadMore} />}
+      {images.length < total && <LoadMoreBtn onClick={loadMore} />}
 
       <ToastContainer autoClose={3000} />
     </AppContainer>
