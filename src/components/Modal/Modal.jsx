@@ -1,40 +1,73 @@
-import React, { Component } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Overlay, ModalBackdrop } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-  }
+const Modal = ({ children, onClose }) => {
+  useEffect(() => {
+    const handleKeyDown = e => {
+      if (e.code === 'Escape') {
+        onClose();
+      }
+    };
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-  }
+    window.addEventListener('keydown', handleKeyDown);
 
-  handleKeyDown = e => {
-    if (e.code === 'Escape') {
-      this.props.onClose();
-    }
-  };
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
 
-  handleBackdropClick = e => {
+  const handleBackdropClick = e => {
     // console.log('CurrentTarget:', e.currentTarget);
     // console.log('target:', e.target);
     if (e.currentTarget === e.target) {
-      this.props.onClose();
+      onClose();
     }
   };
 
-  render() {
-    return createPortal(
-      <ModalBackdrop onClick={this.handleBackdropClick}>
-        <Overlay>{this.props.children} </Overlay>
-      </ModalBackdrop>,
-      modalRoot
-    );
-  }
-}
+  return createPortal(
+    <ModalBackdrop onClick={handleBackdropClick}>
+      <Overlay>{children} </Overlay>
+    </ModalBackdrop>,
+    modalRoot
+  );
+};
 
 export default Modal;
+
+// class Modal extends Component {
+//   componentDidMount() {
+//     window.addEventListener('keydown', this.handleKeyDown);
+//   }
+
+//   componentWillUnmount() {
+//     window.removeEventListener('keydown', this.handleKeyDown);
+//   }
+
+//   handleKeyDown = e => {
+//     if (e.code === 'Escape') {
+//       this.props.onClose();
+//     }
+//   };
+
+//   handleBackdropClick = e => {
+//     // console.log('CurrentTarget:', e.currentTarget);
+//     // console.log('target:', e.target);
+//     if (e.currentTarget === e.target) {
+//       this.props.onClose();
+//     }
+//   };
+
+//   render() {
+//     return createPortal(
+//       <ModalBackdrop onClick={this.handleBackdropClick}>
+//         <Overlay>{this.props.children} </Overlay>
+//       </ModalBackdrop>,
+//       modalRoot
+//     );
+//   }
+// }
+
+// export default Modal;
