@@ -79,7 +79,6 @@ const App = () => {
       <Gallery />
       <ImageGallery images={images} />
       {images.length < total && <LoadMoreBtn onClick={loadMore} />}
-
       <ToastContainer autoClose={3000} />
     </AppContainer>
   );
