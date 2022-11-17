@@ -7,3 +7,6 @@ export const AppContainer = styled.div`
   padding-bottom: 24px;
 `;
 
+export const InputMessageForm = styled.h2`
+text-align: center;
+`

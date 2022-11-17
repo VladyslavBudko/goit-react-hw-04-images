@@ -6,9 +6,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import Searchbar from 'components/Searchbar';
 import ImageGallery from 'components/ImageGallery';
 import fetchImages from 'components/api';
+import ImageErrorView from 'components/ImageErrorView';
+import LoaderView from 'components/Loader/Loader';
 
 import LoadMoreBtn from 'components/Button';
-import { AppContainer } from './App.styled';
+import { AppContainer, InputMessageForm } from './App.styled';
 
 const App = () => {
   const [queryImageName, setQueryImageName] = useState('');
@@ -36,7 +38,7 @@ const App = () => {
     }
 
     getImageName();
-  }, [queryImageName, page]);
+  }, [page, queryImageName]);
 
   const handleSearchBarSubmit = queryImageName => {
     setQueryImageName(queryImageName);
@@ -49,16 +51,33 @@ const App = () => {
     setPage(prevState => prevState + 1);
   };
 
+  const Gallery = () => {
+    if (status === 'idle') {
+      return <InputMessageForm>Input image or photo name</InputMessageForm>;
+    }
+
+    if (status === 'pending' && page === 1) {
+      return <LoaderView message={`Loading ${queryImageName}`} />;
+    }
+
+    if (status === 'rejected') {
+      return <ImageErrorView message={error.message} />;
+    }
+
+    if (images && images.length === 0) {
+      return (
+        <ImageErrorView
+          message={`${queryImageName} not found. Please try again!`}
+        />
+      );
+    }
+  };
+
   return (
     <AppContainer>
       <Searchbar onSubmit={handleSearchBarSubmit} />
-      <ImageGallery
-        images={images}
-        status={status}
-        queryImageName={queryImageName}
-        error={error}
-        page={page}
-      />
+      <Gallery />
+      <ImageGallery images={images} />
       {images.length < total && <LoadMoreBtn onClick={loadMore} />}
 
       <ToastContainer autoClose={3000} />
